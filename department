@@ -1,0 +1,21 @@
+import java.util.*;
+
+public class department {
+	int depId;
+	String depName;
+	ArrayList<student> students;
+	ArrayList<course> courses;
+	
+	public department(int dId,String dName) {
+		this.depId=dId;
+		this.depName=dName;
+	}
+	
+	public void addStudent(student stu) {
+		this.students.add(stu);
+	}
+	
+	public void addCourse(course course) {
+		this.courses.add(course);
+	}
+}
