@@ -1,4 +1,3 @@
-
 public class course {
 	int courseId;
 	String courseName;
