@@ -1,1 +1,65 @@
+package uni;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
+public class University {
+	
+	ArrayList<department> dep = new ArrayList<department>();
+	
+
+	public String getString(String message) {
+		return JOptionPane.showInputDialog(message);
+	}
+	
+	public int getInt(String message) {
+		return Integer.parseInt(JOptionPane.showInputDialog(message)); 
+	}
+	
+	public void newCourse(int depId) {
+		boolean checkDep = dep.stream()
+					.filter(d -> d.depId==depId)
+					.findFirst()
+					.isPresent();
+		
+		if(checkDep) {
+			int id = getInt("Department Id");
+			String name = getString("Department Name");
+			course course = new course(id,name);
+			dep.stream()
+				.filter(d -> d.depId==id)
+				.findFirst()
+				.get().addCourse(course);
+			JOptionPane.showMessageDialog(null,"Course Saved!");
+		}
+		else {
+			JOptionPane.showMessageDialog(null,"Course Unsaved!");
+		}
+	}
+	
+	public void newDepartment() {
+		int depId=getInt("Department ID");
+		boolean depCheck = dep.stream()
+				.filter(d -> d.depId==depId)
+				.toList()
+				.isEmpty();
+		
+		if(depCheck) {
+			department d = new department();
+			d.depId=depId;
+			d.depName=getString("Enter Dep Name");
+			d.students=new ArrayList<student>();
+			d.courses=new ArrayList<course>();
+			
+			dep.add(d);
+			JOptionPane.showMessageDialog(null,"Department Saved!");
+		}
+		
+		else {
+			JOptionPane.showMessageDialog(null,"Department Unsaved!");
+		}
+	}
+	
+	public static void main(String[] args) {
+	}
+
+}
