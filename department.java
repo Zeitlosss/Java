@@ -6,11 +6,6 @@ public class department {
 	ArrayList<student> students;
 	ArrayList<course> courses;
 	
-	public department(int dId,String dName) {
-		this.depId=dId;
-		this.depName=dName;
-	}
-	
 	public void addStudent(student stu) {
 		this.students.add(stu);
 	}
