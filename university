@@ -36,6 +36,15 @@ public class University {
 		}
 	}
 	
+	public void getCourse() {
+		dep.forEach(d -> {
+			System.out.println("Courses in"+d.depName);
+			d.courses.forEach(c -> {
+				System.out.println(" - "+c.courseName);
+			});
+		});
+	}
+	
 	public void newDepartment() {
 		int depId=getInt("Department ID");
 		boolean depCheck = dep.stream()
@@ -59,7 +68,57 @@ public class University {
 		}
 	}
 	
+	public void getDepartment() {
+		dep.forEach(d -> {
+			System.out.println(d.depId+" "+d.depName);
+			System.out.println("Course in"+d.depName);
+			d.courses.forEach(c -> System.out.println(c.courseName));
+			System.out.println("Students in"+d.depName);
+			d.students.forEach(s -> System.out.println(s.name));
+		});
+	}
+	
+	public void newStudent(int depId) {
+		boolean checkDep = dep.stream()
+				.filter(d -> d.depId == depId)
+				.findFirst()
+				.isPresent();
+
+		if (checkDep) {
+			int stuId = getInt("Student Id");
+			String name = getString("Student Name");
+			String surname = getString("Student Name");
+			student student = new student(stuId, name,surname);
+
+			dep.stream()
+				.filter(d -> d.depId == depId)
+				.findFirst()
+				.get()
+				.addStudent(student);
+
+			JOptionPane.showMessageDialog(null, "Student Saved!");
+		} else {
+			JOptionPane.showMessageDialog(null, "Student Unsaved! Department not found.");
+		}
+	}
+	
+	public void getStudent() {
+		dep.forEach(d -> {
+			System.out.println("Students in"+d.depName);
+			d.courses.forEach(c -> {
+				System.out.println(" - "+c.courseName);
+			});
+		});
+	}
+	
 	public static void main(String[] args) {
+		University uni = new University();
+		uni.newDepartment();
+		uni.newCourse(1);
+		uni.newStudent(1);
+		uni.getDepartment();
+		uni.getCourse();
+		uni.getStudent();
 	}
 
 }
